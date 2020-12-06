@@ -23,10 +23,10 @@ local Object = {init = doNothing}
 -- A private container with the entire type hierarchy.
 local types = {[Object] = {[Object] = true}}
 
--- Приватный контейнер со всеми типами и их именами в качестве ключей.
+-- A private container with all types and their names as keys.
 local typesByNames = {["Object"] = Object}
 
--- A private container with all types and their names as keys.
+-- Additional types that can be connected in the object settings.
 local extraTypes = {}
 
 local function objectTypesCheck(var, expected, got)
