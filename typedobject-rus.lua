@@ -2,7 +2,7 @@
 -- Typed Object
 --------------------------------------------------------------------------------
 -- version: 1.0.0 (with russian comments).
--- license: MIT.
+-- license: Unlicense.
 -- Inspired by minimalism of lua-oo (https://github.com/limadm/lua-oo)
 -- and functionality of middleclass (https://github.com/kikito/middleclass).
 -- Предоставляет "объект", позволяющий реализовать полноценное ООП с
