@@ -1,4 +1,4 @@
-local lovebird = require("lib.lovebird")
+local lovebird = require "lib.lovebird"
 
 function love.update()
   lovebird.update()
