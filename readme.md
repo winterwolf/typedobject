@@ -15,6 +15,8 @@ parameter `production = true`, all the type checking functions in your code will
 become dummy, so I can say that type checking does not affect performance at
 all!
 
+The main idea here is to use lines of code similar to [emmylua][] or [ldoc][] comments, from which you could theoretically build documentation or show an autocomplete in IDE, but which in addition checks the correctness of your code.
+
 Currently I tested my lib only on lua version 5.1 (luajit), but I'll port it to
 all newer ones soon.
 
@@ -28,3 +30,5 @@ Download [typedobject.lua](typedobject.lua) to your project dir and enjoy.
 
 [middleclass]: https://github.com/kikito/middleclass
 [oo]: https://github.com/limadm/lua-oo
+[emmylua]: https://emmylua.github.io
+[ldoc]: https://stevedonovan.github.io/ldoc/manual/doc.md.html
