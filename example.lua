@@ -18,7 +18,6 @@ function Point:init(x, y)
   -- See `Object.assert` usage bellow, in tests section.
   Object.assert(x, "number")
   Object.assert(y, "number")
-  self.typename = "test"
   self.x = x or 0
   self.y = y or 0
 end
