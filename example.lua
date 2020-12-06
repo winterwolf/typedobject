@@ -8,7 +8,7 @@ local Object = require "typedobject" {
 }
 
 -- Extend from Object to create a new typed class:
-local Point = Object:extend("Point")
+local Point = Object:extend "Point"
 Point.scale = 2 -- Create class variable.
 
 -- Class constructor:
@@ -30,7 +30,7 @@ function Point:getScaled()
   return self.x * Point.scale, self.y * Point.scale
 end
 
-local Rect = Point:extend("Rect")
+local Rect = Point:extend "Rect"
 
 function Rect:init(x, y, width, height)
   Object.asserts({x, y, width, height}, "number") -- assertS!
@@ -52,7 +52,7 @@ function Rect:newindex__(key, value)
   end
 end
 
-local Super = Object:extend("Super")
+local Super = Object:extend "Super"
 Super.scale = 256
 
 local SuperRect = Rect:extend("SuperRect", Super) -- Multiple inheritance.
