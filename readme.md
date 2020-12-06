@@ -30,6 +30,8 @@ See [example.lua](example.lua).
 
 Download [typedobject.lua](typedobject.lua) to your project dir and enjoy.
 
+You can also use luarocks: `sudo luarocks install typedobject`.
+
 [middleclass]: https://github.com/kikito/middleclass
 [oo]: https://github.com/limadm/lua-oo
 [emmylua]: https://emmylua.github.io
