@@ -15,7 +15,9 @@ parameter `production = true`, all the type checking functions in your code will
 become dummy, so I can say that type checking does not affect performance at
 all!
 
-The main idea here is to use lines of code similar to [emmylua][] or [ldoc][] tags, from which you could theoretically build documentation or show an autocomplete in IDE, but which in addition checks the correctness of your code.
+The main idea here is to use lines of code similar to [emmylua][] or [ldoc][]
+tags, from which you could theoretically build documentation or show an
+autocomplete in IDE, but which in addition checks the correctness of your code.
 
 Currently I tested my lib only on lua version 5.1 (luajit), but I'll port it to
 all newer ones soon.
