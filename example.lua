@@ -1,8 +1,8 @@
 local Object = require "typedobject" {
   production = false,   -- Turn it on to disable all typechecks in your code.
   extraTypes = {          -- Additional mods:
-    require "types-basic",  -- Basic types: integer, float, char...
-    require "types-love",   -- LÖVE types: https://love2d.org/wiki/Types
+    require "types.basic",  -- Basic types: integer, float, char...
+    require "types.love",   -- LÖVE types: https://love2d.org/wiki/Types
                             -- Create your own if necessary!
   }
 }
