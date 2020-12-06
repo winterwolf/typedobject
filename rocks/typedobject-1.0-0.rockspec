@@ -13,6 +13,6 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-      lovebird = "lib/lovebird.lua"
+      typedobject = "typedobject.lua"
    }
 }
