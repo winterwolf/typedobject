@@ -15,7 +15,7 @@ return function(var, expected, got)
       Texture = true,
       Video = true,
     }
-    if Drawable[vartype] then return true end
+    return Drawable[vartype] or false
   end
   return false
 end
