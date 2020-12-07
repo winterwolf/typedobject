@@ -1,9 +1,11 @@
 package = "typedobject"
-version = "1.0-1"
+version = "1.0-3"
 source = {
    url = "git+https://github.com/winterwolf/typedobject.git"
 }
 description = {
+   summary = "Object-oriented library with type checking.",
+   labels = {"type", "object", "class", "oop", "oo"},
    homepage = "https://github.com/winterwolf/typedobject",
    license = "Unlicense"
 }
@@ -14,7 +16,7 @@ build = {
    type = "builtin",
    modules = {
       typedobject = "typedobject.lua",
-      ["typedobject.types.basic"] = "types/basic.lua",
-      ["typedobject.types.love"] = "types/love.lua",
+      ["types.basic"] = "types/basic.lua",
+      ["types.love"] = "types/love.lua",
    },
 }
