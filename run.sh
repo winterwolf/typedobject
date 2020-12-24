@@ -1,4 +1,5 @@
 #!/bin/fish
 
-# luajit example.lua
+#luajit example.lua
+
 love .
