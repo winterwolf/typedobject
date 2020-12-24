@@ -20,8 +20,7 @@ you could theoretically build documentation (can't promise, but maybe I'll add
 this feature later), which in addition checks the correctness of types in your
 functions arguments.
 
-Currently I tested my lib only on lua version 5.1 (luajit), but I'll port it to
-all newer ones soon.
+All lua versions >= 5.1 and < 6 (including luajit) are supported.
 
 ## Usage
 
