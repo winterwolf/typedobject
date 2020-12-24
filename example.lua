@@ -3,7 +3,7 @@ local Object = require "typedobject" {
   extraTypes = {          -- Additional mods:
     (require "types.basic"),  -- Basic types: integer, float, char...
     (require "types.love"),   -- LÖVE types: https://love2d.org/wiki/Types
-                            -- Create your own if necessary!
+                              -- Create your own if necessary!
   }
 }
 
