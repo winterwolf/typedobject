@@ -76,7 +76,7 @@ local s = SuperRect(20, 40, 60, 80)
 p.scale = r.scale * 2
 s.w = 666
 
-_L = { -- LoveBird export.
+_L = { -- LoveBird's export (you can inspect it in browser).
   Object = Object,
   Point = Point,
   Rect = Rect,
