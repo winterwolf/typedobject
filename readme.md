@@ -35,8 +35,8 @@ In constructor you can call superclass init method:
 `Class.super.init(self, ...)` (don't forget to pass self).
 
 The same way you can create your methods, including metamethods, but remember
-that metamethods should be declared with prefix "__" at the end of their names:
-`Class:call__()`.
+that metamethods should be declared with postfix "__" instead of prefix
+(after name): `Class:call__()`.
 
 Create subclasses: `SubClass = Class:extend "SubClass"`.
 
