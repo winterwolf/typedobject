@@ -48,7 +48,8 @@ Error will rise if no one of described types don't match.
 
 Use `Object.asserts` to describe multiply variables.
 
-Use `Object:is` to check types without raising errors.
+Use `Object:is` to check types without raising errors. Each type should match
+to get `true`.
 
 See [example](example.lua) and [source](typedobject.lua) for more details.
 
