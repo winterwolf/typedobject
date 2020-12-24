@@ -24,7 +24,7 @@ All lua versions >= 5.1 and < 6 (including luajit) are supported.
 
 ## Usage
 
-Require `Object` from the library with optional table argument:
+Require library as `Object` with optional table argument:
 { production[bool], extraTypes[table with functions] }.
 
 Use method `Class = Object:extend "ClassName"` to create your class.
