@@ -72,7 +72,7 @@ local SuperMan = Super:extend{ -- This weird way also supported. 💁
 local m = SuperMan{age = 5, name = "Adolf"} -- And this weird way too!
 local p = Point(10, 20)
 local r = Rect(2, 4, 6, 8)
-local s = SuperRect(20,40,60,80)
+local s = SuperRect(20, 40, 60, 80)
 p.scale = r.scale * 2
 s.w = 666
 

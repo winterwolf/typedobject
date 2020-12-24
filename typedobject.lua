@@ -31,7 +31,7 @@ local extraTypes = {}
 
 local function objectTypesCheck(var, expected, got)
   if got ~= "table" then return false end
-  got = types[var] -- Перезапись!
+  got = types[var] -- Rewrite!
   if not got then return false end
   if type(expected) == "table" and got[expected] then return true
   elseif type(expected) == "string" and got[typesByNames[expected]] then
