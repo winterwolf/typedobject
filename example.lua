@@ -23,7 +23,7 @@ function Point:init(x, y)
 end
 
 -- All metamethods are supported,
--- but you should use "__" AT THE END of their names!
+-- but you should put "__" AT THE END of their names!
 function Point:call__(msg) return msg .. "!!!" end
 
 function Point:getScaled()

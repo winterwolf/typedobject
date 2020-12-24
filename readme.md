@@ -9,7 +9,7 @@ library's `assert` method, which is designed to compare your types as well as
 any other - from lua, LÖVE or whatever (you can always add your own module for
 extra types).
 
-So my library provides not just OOP, but also _(optionally, maybe not perfect,
+So my library provides not just OOP, but also _(optionally, in very simple form,
 but)_ **strongly typed** OOP! In addition, when you call the library with the
 parameter `production = true`, all the type checking functions in your code will
 become dummy, so I can say that type checking does not affect performance at
@@ -24,7 +24,33 @@ All lua versions >= 5.1 and < 6 (including luajit) are supported.
 
 ## Usage
 
-See [example.lua](example.lua).
+Require `Object` from the library with optional table argument:
+{ production[bool], extraTypes[table with functions] }.
+
+Use method `Class = Object:extend "ClassName"` to create your class.
+
+Use `Class:init(...)` to define class consructor.
+
+In constructor you can call superclass init method:
+`Class.super.init(self, ...)` (don't forget to pass self).
+
+The same way you can create your methods, including metamethods, but remember
+that metamethods should be declared with prefix "__" at the end of their names:
+`Class:call__()`.
+
+Create subclasses: `SubClass = Class:extend "SubClass"`.
+
+Multiple inheritance and mixins:
+`SubClass = Class:extend("SubClass", AnotherClass, {name = "bob"})`.
+
+Use `Object.assert(var, types..., "\nOptional err message")` to describe types.
+Error will rise if no one of described types don't match.
+
+Use `Object.asserts` to describe multiply variables.
+
+Use `Object:is` to check types without raising errors.
+
+See [example](example.lua) and [source](typedobject.lua) for more details.
 
 ## Installation
 
