@@ -1,5 +1,5 @@
 package = "typedobject"
-version = "1.0-4"
+version = "1.0-5"
 rockspec_format = "3.0"
 source = {
    url = "git+https://github.com/winterwolf/typedobject.git"

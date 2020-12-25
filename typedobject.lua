@@ -219,7 +219,11 @@ setmetatable(Object, {
       self.asserts   = doNothing
       checksInExtend = doNothing
     end
-    if opt.extraTypes then extraTypes = opt.extraTypes end
+    if opt.extraTypes then
+      for _, extype in ipairs(opt.extraTypes) do
+        if type(extype) == "function" then table.insert(extraTypes, extype) end
+      end
+    end
     return self
   end,
 })
