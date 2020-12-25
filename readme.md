@@ -20,7 +20,7 @@ you could theoretically build documentation (can't promise, but maybe I'll add
 this feature later), which in addition checks the correctness of types in your
 functions arguments.
 
-All lua versions >= 5.1 and < 6 (including luajit) are supported.
+All lua versions between 5 and 6 (including luajit) are supported.
 
 ## Usage
 
