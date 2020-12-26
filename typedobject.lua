@@ -178,7 +178,7 @@ local function extend(base, name, ...)
   -- Declares superclasses and a name for 📜sub.
   types[sub] = {[sub] = true}
   if typesByNames[name] then
-    error("type name `" .. name .. "` already existed", 2)
+    error("type name `" .. name .. "` already existed", errorLevelDefault)
   end
   typesByNames[name] = sub
   for t in pairs(types[base]) do types[sub][t] = true end
