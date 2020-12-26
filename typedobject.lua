@@ -69,7 +69,7 @@ end
 -- Raises an error if none of the types match.
 -- If the last argument starts with a new line character (`\n`),
 -- it is considered not as a type, but as addition to the error message.
--- Similarly, if the last argument is false, it returns false instead of error.
+-- Similarly, if the last argument is `\n!`, it returns false instead of error.
 -- Replaced with `doNothing` in production mode.
 local function typeAssert(var, ...)
   local checks = {...}
