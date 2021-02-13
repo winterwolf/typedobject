@@ -181,6 +181,7 @@ local function extend(base, name, ...)
     error("type name `" .. name .. "` already existed", errorLevelDefault)
   end
   typesByNames[name] = sub
+  if not types[base] then types[base] = {[base] = true} end
   for t in pairs(types[base]) do types[sub][t] = true end
   -- Mixes the values in 📜sub.
   for _, extra in ipairs{...} do
