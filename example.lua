@@ -89,6 +89,9 @@ _L = { -- LoveBird's export (you can inspect it in browser).
   m = m,
 }
 
+Object.assert(p, Point, "Point")
+--assert(p:is(Point)) -- instance is not a class
+
 -- Object.assert(var, types..., "\nOptional message") -- \n is important!
 Object.assert(3, "integer", "string", "\nUnacceptable!")
 if love then -- LÖVE's type
