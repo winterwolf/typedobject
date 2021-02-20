@@ -170,7 +170,9 @@ assert(rect:test() == "working" and not rect.nope)
 
 Table with all known classes, indexed by their names.
 
-Classes are automatically added to this table when you create them and are automatically removed from it by the garbage collector if they are not used anywhere.
+Classes are automatically added to this table when you create them and are
+automatically removed from it by the garbage collector if they are not used
+anywhere.
 
 ```lua
 assert(Object.classmap.Point.classname == "Point")
