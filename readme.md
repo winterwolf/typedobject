@@ -163,7 +163,7 @@ Copy all methods/functions from provided classes/tables to `self`.
 Everything that is not a function will be ignored.
 
 ```lua
-Point:implement { ["test"] = function() return "working" end, nope = true }
+Point:implement {test = function() return "working" end, nope = true}
 assert(rect:test() == "working" and not rect.nope)
 ```
 
