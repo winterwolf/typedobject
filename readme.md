@@ -394,7 +394,7 @@ I'm a big fan of _simplicity_ and I believe that
 
 ```lua
 if something:is(simple) and something:is(not stupid) then
-  self.genious = true
+  something.genious = true
 end
 ```
 
