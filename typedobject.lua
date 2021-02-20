@@ -74,6 +74,10 @@ end
 
 
 function Object:new(args)
+  local t = type(args)
+  if t ~= "table" then
+    error("'Object:new()' expected a table, but got " .. t, 3)
+  end
   for key, value in pairs(args) do self[key] = value end
 end
 
