@@ -304,7 +304,7 @@ local test = Test {
 assert(test:test() == 123)
 ```
 
-Earlier, I tried to implement a syntactic sugar as well for the
+Earlier I tried to implement a syntactic sugar as well for the
 `Object.extend()` and `Object.new()`, but later I realized that it only creates
 problems and is not compatible with the idea of strong-typing each class field
 with `Object.asset()`, so I decided to remove it.
