@@ -199,7 +199,7 @@ assert(Object.isTypeOf(1, 2))
 
 #### Object:isMemberOf(cls)
 
-Checks if `self` is member of `cls` (or this class inself).
+Checks if `self` is member of `cls` (or this class itself).
 
 Arguments can be any of:
 
