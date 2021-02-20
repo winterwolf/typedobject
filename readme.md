@@ -137,7 +137,7 @@ assert(rect.x, rect.y, rect.w, rect.h == 4, 8, 12, 16)
 Here is a list of fields and methods that will be accessible from any of your
 class and instance:
 
-> Object.classname
+#### Object.classname
 
 Name of current class (string).
 
@@ -146,7 +146,7 @@ assert(Object.classname == "Object")
 assert(rect.classname == "Rectangle")
 ```
 
-> Object.super
+#### Object.super
 
 Link to super class of the current class. For Object is empty table.
 
@@ -155,7 +155,7 @@ assert(type(Object.super) == "table" and #Object.super == 0)
 assert(Rectangle.super.classname == "Point")
 ```
 
-> Object:implement(...)
+#### Object:implement(...)
 
 Copy all methods/functions from provided classes/tables to `self`.
 
@@ -166,7 +166,7 @@ Point:implement { ["test"] = function() return "working" end, nope = true }
 assert(rect:test() == "working" and not rect.nope)
 ```
 
-> Object.classmap
+#### Object.classmap
 
 Table with all known classes, indexed by their names.
 
@@ -180,7 +180,7 @@ assert(Object.classmap.Point.classname == "Point")
 
 In addition to the list above, here I list the verification methods:
 
-> Object:isTypeOf(thing)
+#### Object:isTypeOf(thing)
 
 Checks if `self` is the same **type** *(not a class)* as `thing`.
 
@@ -195,7 +195,7 @@ assert(Object.isTypeOf("number", 1))
 assert(Object.isTypeOf(1, 2))
 ```
 
-> Object:isMemberOf(cls)
+#### Object:isMemberOf(cls)
 
 Checks if `self` is member of `cls` (or this class inself).
 
@@ -221,7 +221,7 @@ assert(Object.isMemberOf("Rectangle", "Object"))
 your project to be able to remember all class names! Usually global variables is
 not a good practice, but `Object` is exeption if you want to use OOP everywhere.
 
-> Object:assert(thing, mode, message)
+#### Object:assert(thing, mode, message)
 
 This one is the most complicated, but very userful.
 
