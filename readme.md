@@ -306,8 +306,8 @@ assert(test:test() == 123)
 
 Earlier, I tried to implement a syntax sugar as well for the `Object.extend()`,
 but later I realized that it only creates problems and is not compatible with
-the idea of strong-typing each field of class using `Object.asset()`, so I
-decided to remove it.
+the idea of strong-typing each class field `Object.asset()`, so I decided to
+remove it.
 
 ### Metamethods
 
