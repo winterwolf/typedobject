@@ -19,7 +19,9 @@ Version: 2.0 (rewrited from scratch!)
 - [x] [Metamethods support](#metamethods).
 - [x] [Settings](#settings).
 
-... Something is missing? Request your features!
+... Something is missing? [Request] your features!
+
+[Request]:https://github.com/winterwolf/typedobject/issues
 
 ## Features
 
