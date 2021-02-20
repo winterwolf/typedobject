@@ -241,11 +241,20 @@ If `mode` is `"exacts"`, `"classes"`, `"instances"`, `"members"` or `"types"`,
 then `thing` must be a table with many things and error will be thrown if no one
 of them doesn't match the `self`.
 
-There is also short versions of `mode` available:
+There are also short versions of `mode` available:
 
-`"e"`, `"t"`, `"c"`, `"i"`, `"m"` and
-
-`"es"`, `"ts"`, `"cs"`, `"is"`, `"ms"`.
+```lua
+"e"  = "exact"
+"t"  = "type"
+"c"  = "class"
+"i"  = "instance"
+"m"  = "member"
+"es" = "exacts"
+"ts" = "types"
+"cs" = "classes"
+"is" = "instances"
+"ms" = "members"
+```
 
 If `message` is provided, it will be added to default error message.
 
