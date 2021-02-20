@@ -16,7 +16,6 @@ Version: 2.0 (rewrited from scratch!)
   - [x] Class and instance checking.
   - [x] Custom extra types checking.
   - [x] Assertions in Development mode.
-- [ ] [Syntactic sugar](#syntactic-sugar).
 - [x] [Metamethods support](#metamethods).
 - [x] [Settings](#settings).
 
@@ -305,37 +304,10 @@ local test = Test {
 assert(test:test() == 123)
 ```
 
-**!!!WARNING!!!** THIS FEATURE ISN'T READY YET !!!
-
-You can also initialize your classes with constructors a little bit simplier.
-
-Instead of this:
-
-```lua
-local Rectangle = Point:extend "Rectangle"
-
-function Rectangle:new(x, y, w, h)
-  Point.new(self, x, y)
-  self.w = 6
-  self.h = 8
-end
-```
-
-You can use such syntax:
-
-```lua
-local Rectangle = Point:extend {
-  classname = "Rectangle", w = 6, h = 8,
-  new = function(self, x, y)
-    Point.new(self, x, y)
-  end
-}
-```
-
-Maybe in this example it doesn't look much better, but sometimes we are faced
-with a situation when we need to initialize a class with a large number of
-fields, and in this case it's much easier to pass a table with these fields than
-to assign each one via `self`.
+Earlier, I tried to implement a syntax sugar as well for the `Object.extend()`,
+but later I realized that it only creates problems and is not compatible with
+the idea of strong-typing each field of class using `Object.asset()`, so I
+decided to remove it.
 
 ### Metamethods
 

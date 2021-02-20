@@ -72,31 +72,6 @@ function Assist:applyCombinedIndexFromSelf(apply_here)
   end
 end
 
---[[
-function Assist:sugarExtend(fields, ...)
-  local cls = self:extend(fields.classname, ...)
-
-  local init = fields.new
-  fields.classname = nil
-
-  for key, value in pairs(fields) do
-    if type(value) == "function" then
-      cls[key] = value
-      fields[key] = nil
-    end
-  end
-
-  function cls.new(this, ...)
-    if init then init(this, ...) end
-    for key, value in pairs(fields) do
-      this[key] = value
-    end
-  end
-
-  return cls
-end
---]]
-
 
 function Object:new(args)
   for key, value in pairs(args) do self[key] = value end
@@ -104,10 +79,7 @@ end
 
 
 function Object:extend(classname, ...)
-  local cntype = type(classname)
-  --if cntype == "table" then return Assist.sugarExtend(self, classname, ...)
-  --elseif cntype ~= "string" then error("class must have a name", 2) end
-  if cntype ~= "string" then error("class must have a name", 2) end
+  if type(classname) ~= "string" then error("class must have a name", 2) end
 
   if Object.classmap[classname] then
     error("class '" .. classname .. "' already exists", 2)
