@@ -109,6 +109,10 @@ function Object:extend(classname, ...)
   --elseif cntype ~= "string" then error("class must have a name", 2) end
   if cntype ~= "string" then error("class must have a name", 2) end
 
+  if Object.classmap[classname] then
+    error("class name '" .. classname .. "' already exists", 2)
+  end
+
   local cls, cls_mt = {}, {}
   for key, value in pairs(getmetatable(self)) do cls_mt[key] = value end
   for _, extra in ipairs{...} do
