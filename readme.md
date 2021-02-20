@@ -91,7 +91,7 @@ Although it can be deliberately tampered with. Look at the example below:
 `Rectangle.super.new(self, ...)` - we called `.new(something_else)` there
 instead of `:new()`.
 
-Class also can has own fields, which are available from its instanse. Usually
+Class also can has own fields, which are available from its instance. Usually
 they used to store some constants in libs, for example: `Math.pi = 3.14`.
 
 Okay, let's create some example class instance with fields and methods:
