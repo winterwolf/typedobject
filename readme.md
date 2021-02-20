@@ -393,7 +393,7 @@ assert(Object.isTypeOf("integer", 3))
 I'm a big fan of _simplicity_ and I believe that
 
 ```lua
-if something_simple:is(not stupid) then
+if something:is(simple) and something:is(not stupid) then
   self.genious = true
 end
 ```
