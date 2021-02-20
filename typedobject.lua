@@ -110,7 +110,7 @@ function Object:extend(classname, ...)
   if cntype ~= "string" then error("class must have a name", 2) end
 
   if Object.classmap[classname] then
-    error("class name '" .. classname .. "' already exists", 2)
+    error("class '" .. classname .. "' already exists", 2)
   end
 
   local cls, cls_mt = {}, {}
