@@ -246,7 +246,7 @@ returning false and doesn't work in **Production** mode for maximum perfomance.
 
 If `message` is provided, it will be added to default error message.
 
-Method `Object:assert()` is not quite the same as usual `assert()`.
+Appointment of `Object.assert()` is not quite the same as usual `assert()`.
 It works in a very similar way - makes checks and throw errors,
 but the main purpose of this method is to make your code **typed**.
 
