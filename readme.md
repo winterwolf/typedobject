@@ -2,7 +2,7 @@
 
 Object-oriented library with type checking.
 
-Version: 2.0 (rewrited from scratch!)
+Version: 2.1 (rewrited from scratch!)
 
 ## Overview
 
@@ -11,7 +11,7 @@ Version: 2.0 (rewrited from scratch!)
 - [x] [Clean and easy debug](#easy-debug).
 - [x] [Well documented](#documentation).
 - [x] [Multiply inheritance](#inheritance).
-- [x] [Member checking](#member-checking).
+- [x] [Member checking](#objectisthing-mode-logic).
   - [x] Type checking.
   - [x] Class and instance checking.
   - [x] Custom extra types checking.
@@ -179,68 +179,36 @@ anywhere.
 assert(Object.classmap.Point.classname == "Point")
 ```
 
-### Member checking
+#### Object:is(thing, mode, logic)
 
-In addition to the list above, here I list the verification methods:
+Universal member checking method. It is the most complicated one, but very
+userful.
 
-#### Object:isTypeOf(thing)
+First at all, let me explain, what `mode` and `logic` is.
 
-Checks if `self` is the same **type** *(not a class)* as `thing`.
+Both of them are string parameters that changes behavior of the function:
 
-Arguments can be a type names (strings) or anything else.
+If `mode` is `"exact"` - simply compares `self` with `thing` and return result;
 
-```lua
-assert(Rectangle:isTypeOf(Point))
-assert(Point:isTypeOf(Rectangle))
-assert(Object:isTypeOf("table"))
-assert(Object.isTypeOf("table", Object))
-assert(Object.isTypeOf("number", 1))
-assert(Object.isTypeOf(1, 2))
-```
+If `mode` is `"type"` - checks if `self` is the same **type** *(not a class)* as
+`thing`. Both arguments (`self` and `thing`) can be a type names (strings) or
+anything else.
 
-#### Object:isMemberOf(cls)
+If `mode` is `"class"`, `"instance"` or `"member"` - checks if `thing` is a
+class, instance, or any kind of member for `self` respectively.
 
-Checks if `self` is member of `cls` (or this class itself).
+If `mode` is `"exacts"`, `"classes"`, `"instances"`, `"members"` or `"types"`,
+then `thing` must be a table with many things.
 
-Arguments can be any of:
+In this case `self` and `thing` can be only any of:
 
 - Class (extended from Object)
 - Class instance (created by calling a class)
 - Any known class name (string)*
 
-If `self` is member of `cls`, returns string `"instance"` or `"class"`.
-Else returns `false`.
-
-```lua
-assert(Point:isMemberOf(Point) == "class")
-assert(Rectangle:isMemberOf(Point))
-assert(not Point:isMemberOf(Rectangle))
-assert(rect:isMemberOf(Rectangle))
-assert(rect:isMemberOf("Point") == "instance")
-assert(Object.isMemberOf("Rectangle", "Object"))
-```
-
 \* Keep in mind that `Object` should be required once from main script in all
 your project to be able to remember all class names! Usually global variables is
 not a good practice, but `Object` is exeption if you want to use OOP everywhere.
-
-#### Object:assert(thing, mode, message)
-
-This one is the most complicated, but very userful.
-
-If `mode` is `"exact"` - simply compares `self` with `thing` and throw error if
-got false;
-
-If `mode` is `"type"` - do `Object:isTypeOf(thing)` and throw error if got
-false;
-
-If `mode` is `"class"`, `"instance"` or `"member"` - do
-`Object:isMemberOf(thing)` and throw error if `mode` does not match the result
-("member" means - no matter class or instance).
-
-If `mode` is `"exacts"`, `"classes"`, `"instances"`, `"members"` or `"types"`,
-then `thing` must be a table with many things and error will be thrown if no one
-of them doesn't match the `self`.
 
 There are also short versions of `mode` available:
 
@@ -252,7 +220,41 @@ There are also short versions of `mode` available:
 "m" = "member"        "ms" = "members"
 ```
 
+Now lets talk about "`logic`". It can be one of 3 values:
+
+- `"any"` - return **true** when compares `self` and `thing`
+- `"not"` - return **false** when compares `self` and `thing`
+- `"all"` - return **true** if `thing` is a table with many things and **all**
+  of them correspond to `self` (also return false).
+
+This function always returns boolean. `mode` and `logic` are optional.
+
+Default `mode` is `"member"` and default `logic` is `"any"`.
+
+Here is the shortest example of `Object:is`:
+
+```lua
+assert(rect:is(Point))
+```
+
+More examples see in the next topic.
+
+#### Object:assert(thing, mode, logic, message)
+
+Does absolutely the same as method `Object:is()`, but throws error instead of
+returning false and doesn't work in **Production** mode for maximum perfomance.
+
 If `message` is provided, it will be added to default error message.
+
+Appointment of `Object.assert` is not quite the same as usual `assert`.
+It works in a very similar way - makes checks and throw errors,
+but the main purpose of this method is to make your code **typed**.
+
+If you get in the habit of checking all the arguments inside each of your
+functions, as well as describing the types of all fields inside all class
+constructors with this method, then your code will turn into a real strongly
+typed code and you will not need to use either emmylua or luadoc, because the
+best code documentation is the code itself!
 
 ```lua
 Object.assert(1, 1, "exact")
@@ -262,24 +264,12 @@ Object.assert(rect, {false, "Rectangle"}, "instances")
 rect:assert({false, "Rectangle"}, "is") -- equivalent
 
 Object.assert(1, {2, "text"}, "types") -- is a number
-Object.assert(1, {"number", "string"}, "types") -- equivalent
+Object.assert("number", {"number", "string"}, "types", "any") -- equivalent
+
+Rectangle:assert(Point)
+rect:assert({Point, "Point", Rectangle}, "members", "all")
+rect:assert({3, "Point", Rectangle}, "members", "not")
 ```
-
-Appointment of `Object.assert` is not quite the same as usual `assert`.
-It works in a very similar way - makes checks and throw errors,
-but the main purpose of this method is to make your code typed.
-
-If you get in the habit of checking all the arguments inside each of your
-functions, as well as describing the types of all fields inside all class
-constructors with this method, then your code will turn into a real strongly
-typed code and you will not need to use either emmylua or luadoc, because the
-best code documentation is the code itself!
-
-In addition, you don't have to worry about performance degradation due to the
-huge number of asserts, because in **Production** mode all of them are replaced
-with dummies.
-
-That's why `Object.assert(1, 1, "exact")` is better than `assert(1 == 1)`.
 
 ### Syntactic sugar
 
