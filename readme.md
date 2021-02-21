@@ -11,7 +11,7 @@ Version: 2.0 (rewrited from scratch!)
 - [x] [Clean and easy debug](#easy-debug).
 - [x] [Well documented](#documentation).
 - [x] [Multiply inheritance](#inheritance).
-- [x] [Member checking](#member-checking).
+- [x] [Member checking](#objectisthing-mode-logic).
   - [x] Type checking.
   - [x] Class and instance checking.
   - [x] Custom extra types checking.
@@ -179,9 +179,16 @@ anywhere.
 assert(Object.classmap.Point.classname == "Point")
 ```
 
-### Member checking
+#### Object:is(thing, mode, logic)
 
-In addition to the list above, here I list the verification methods:
+#### Object:assert(thing, mode, logic, message)
+
+Does absolutely the same as method `Object:is()`, but throws error instead of
+returning false and doesn't work in **Development** mode.
+
+If `message` is provided, it will be added to default error message.
+
+### Member checking (old)
 
 #### Object:isTypeOf(thing)
 
@@ -251,8 +258,6 @@ There are also short versions of `mode` available:
 "i" = "instance"      "is" = "instances"
 "m" = "member"        "ms" = "members"
 ```
-
-If `message` is provided, it will be added to default error message.
 
 ```lua
 Object.assert(1, 1, "exact")

@@ -10,13 +10,15 @@ local Object = {
 
 
 function Assist:config(config)
-  if type(config) ~= "table" then error("config must be a table", 3) end
+  if type(config) ~= "table" then error("'config' must be a table", 2) end
 
   if config.production then
     Object.assert = function() end
   end
   if config.extraTypes then
-    Object.assert("function", config.extraTypes, "ts")
+    if type(config.extraTypes) ~= "table" then
+      error("'config.extraTypes' must be a table", 2)
+    end
     Assist.extraTypes = config.extraTypes
   end
 
@@ -24,6 +26,47 @@ function Assist:config(config)
   mt.__call = Assist.instance
   setmetatable(Object, mt)
   return Object
+end
+
+
+function Assist:isTypeOf(thing)
+  if thing == self then return true end
+  local typeOfThing = type(thing)
+  local typeOfSelf = type(self)
+  if typeOfThing == "string" then typeOfThing = thing end
+  if typeOfSelf == "string" then typeOfSelf = self end
+  if typeOfThing == typeOfSelf then return true end
+  for _, check in ipairs(Assist.extraTypes) do
+    if check(self, typeOfThing, typeOfSelf) then return true end
+    if check(thing, typeOfSelf, typeOfThing) then return true end
+  end
+  return false
+end
+
+
+function Assist:isMemberOf(cls)
+  if not self or not cls then return false end
+
+  local classname
+  local classtype = type(cls)
+  if classtype == "string" then classname = cls
+  elseif classtype == "table" then classname = cls.classname
+  else return false end
+
+  local selftype = type(self)
+  if selftype == "string" then self = Object.classmap[self]
+  elseif selftype ~= "table" or not self.super then return false end
+
+  if self.classname and not rawget(self, "classname") then
+    if classname == self.classname then return "instance" end
+  end
+
+  while self.super do
+    if self.classname == classname then return "class" end
+    self = self.super
+  end
+
+  return false
 end
 
 
@@ -116,51 +159,8 @@ function Object:implement(...)
 end
 
 
-function Object:isTypeOf(thing)
-  if thing == self then return true end
-  local typeOfThing = type(thing)
-  local typeOfSelf = type(self)
-  if typeOfThing == "string" then typeOfThing = thing end
-  if typeOfSelf == "string" then typeOfSelf = self end
-  if typeOfThing == typeOfSelf then return true end
-  for _, check in ipairs(Assist.extraTypes) do
-    if check(self, typeOfThing, typeOfSelf) then return true end
-    if check(thing, typeOfSelf, typeOfThing) then return true end
-  end
-  return false
-end
-
-
-function Object:isMemberOf(cls)
-  if not self or not cls then return false end
-
-  local classname
-  local classtype = type(cls)
-  if classtype == "string" then classname = cls
-  elseif classtype == "table" then classname = cls.classname
-  else return false end
-
-  local selftype = type(self)
-  if selftype == "string" then self = Object.classmap[self]
-  elseif selftype ~= "table" or not self.super then return false end
-
-  if self.classname and not rawget(self, "classname") then
-    if classname == self.classname then return "instance" end
-  end
-
-  while self.super do
-    if self.classname == classname then return "class" end
-    self = self.super
-  end
-
-  return false
-end
-
-
-function Object:assert(thing, mode, message)
-  message = message or ""
-  local level = 2
-
+function Object:is(thing, mode, logic)
+  mode = mode or "member"
   if       mode == "e"  then mode = "exact"
     elseif mode == "t"  then mode = "type"
     elseif mode == "c"  then mode = "class"
@@ -173,47 +173,87 @@ function Object:assert(thing, mode, message)
     elseif mode == "ms" then mode = "members"
   end
 
-  local function stop()
-    error("['" .. tostring(self) .. "' doesn'table match '" ..
-      tostring(thing) .. "' in mode '" .. mode .. "'] " .. message, level+1)
+  local function logicalCheck(check, bool)
+    if logic == "all" then
+      for _, table in ipairs(thing) do
+        if not check(table) then return false end
+      end
+      return true
+    else
+      for _, table in ipairs(thing) do
+        if check(table) == bool then return true end
+      end
+      return false
+    end
+  end
+
+  local function massCheck()
+    if type(thing) ~= "table" or thing.super then
+      error("'thing' must be a table with 'things' in mode '" .. mode ..
+        "', but it is a '" .. tostring(thing) .. "'", 3)
+    end
+
+    logic = logic or "any"
+    local bool
+    if logic == "any" then bool = true
+    elseif logic == "not" then bool = false
+    elseif logic ~= "all" then
+      error("wrong logic: '" .. tostring(logic) .. "'", 3)
+    end
+
+    if mode == "exacts" then
+      return logicalCheck(function(table)
+        if self == table then return true end
+        return false
+      end, bool)
+    elseif mode == "types" then
+      return logicalCheck(function(table)
+        if Assist.isTypeOf(self, table) then return true end
+        return false
+      end, bool)
+    else
+      return logicalCheck(function(table)
+        local member = Assist.isMemberOf(self, table)
+        if mode == "classes" and member == "class" then return true end
+        if mode == "instances" and member == "instance" then return true end
+        if mode == "members" and member then return true end
+        return false
+      end, bool)
+    end
   end
 
   if mode == "exact" then
-    if self ~= thing then stop() end
+    if self ~= thing then return false end
   elseif mode == "type" then
-    if not Object.isTypeOf(self, thing) then stop() end
+    if not Assist.isTypeOf(self, thing) then return false end
   elseif mode == "class" or mode == "instance" or mode == "member" then
-    local result = Object.isMemberOf(self, thing)
-    if result == mode then return end
-    if mode == "member" and result then return end
-    stop()
+    local result = Assist.isMemberOf(self, thing)
+    if result == mode then return true end
+    if mode == "member" and result then return true end
+    return false
   elseif
     mode == "exacts" or
     mode == "classes" or
     mode == "instances" or
     mode == "members" or
-    mode == "types" then
-    if type(thing) ~= "table" or thing.super then
-      error("'thing' must be a table with 'things' in mode '" .. mode ..
-        "', but it is a '" .. tostring(thing) .. "'", level)
+    mode == "types" then return massCheck()
+  else error("incorrect mode: '" .. mode .. "'", 2) end
+  return true
+end
+
+
+function Object:assert(thing, mode, logic, message)
+  message = message or ""
+  if message ~= "" then message = "\n" .. message end
+  if not Object.is(self, thing, mode, logic) then
+    if logic == "not" or logic == "all"
+      then logic = logic .. " "
+      else logic = ""
     end
-    if mode == "exacts" then
-      for _, table in ipairs(thing) do
-        if self == table then return end
-      end
-    elseif mode == "types" then
-      for _, table in ipairs(thing) do
-        if Object.isTypeOf(self, table) then return end
-      end
-    end
-    for _, table in ipairs(thing) do
-      local result = Object.isMemberOf(self, table)
-      if mode == "classes" and result == "class" then return end
-      if mode == "instances" and result == "instance" then return end
-      if mode == "members" and result then return end
-    end
-    stop()
-  else error("incorrect mode: '" .. mode .. "'", level) end
+    error("['" .. tostring(self) .. "' does not match '" ..
+      tostring(thing) .. "' in mode '" .. tostring(logic) ..
+      tostring(mode) .. "']" .. message, 2)
+  end
 end
 
 
