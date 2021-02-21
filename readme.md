@@ -222,8 +222,8 @@ There are also short versions of `mode` available:
 
 Now lets talk about "`logic`". It can be one of 3 values:
 
-- `"any"` - return **true** when compares `self` and `thing`
-- `"not"` - return **false** when compares `self` and `thing`
+- `"any"` - return **true** when `self` corresponds to `thing`
+- `"not"` - return **false** when `self` corresponds to `thing`
 - `"all"` - return **true** if `thing` is a table with many things and **all**
   of them correspond to `self` (else return false).
 
