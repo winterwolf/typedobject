@@ -2,7 +2,7 @@
 
 Object-oriented library with type checking.
 
-Version: 2.0 (rewrited from scratch!)
+Version: 2.1 (rewrited from scratch!)
 
 ## Overview
 
