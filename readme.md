@@ -231,7 +231,7 @@ This function always returns boolean. `mode` and `logic` are optional.
 
 Default `mode` is `"member"` and default `logic` is `"any"`.
 
-Here is the shortest example of `Object:is`:
+Here is the shortest example of `Object:is()`:
 
 ```lua
 assert(rect:is(Point))
