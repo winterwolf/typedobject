@@ -247,7 +247,7 @@ returning false and doesn't work in **Production** mode for maximum perfomance.
 If `message` is provided, it will be added to default error message.
 
 Destination of `Object.assert()` is not quite the same as usual `assert()`.
-It works in a very similar way - makes checks and throw errors,
+It works in a very similar way - makes checks and throws errors,
 but the main purpose of this method is to make your code **typed**.
 
 If you get in the habit of checking all the arguments inside each of your
