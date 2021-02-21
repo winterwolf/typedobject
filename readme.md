@@ -245,11 +245,11 @@ of them doesn't match the `self`.
 There are also short versions of `mode` available:
 
 ```lua
-"e"  = "exact"         "es" = "exacts"
-"t"  = "type"          "ts" = "types"
-"c"  = "class"         "cs" = "classes"
-"i"  = "instance"      "is" = "instances"
-"m"  = "member"        "ms" = "members"
+"e" = "exact"         "es" = "exacts"
+"t" = "type"          "ts" = "types"
+"c" = "class"         "cs" = "classes"
+"i" = "instance"      "is" = "instances"
+"m" = "member"        "ms" = "members"
 ```
 
 If `message` is provided, it will be added to default error message.
