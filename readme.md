@@ -201,7 +201,7 @@ If `mode` is `"exacts"`, `"classes"`, `"instances"`, `"members"` or `"types"`,
 then `thing` must be a table with many things.
 
 If `mode` is `"classes"`, `"instances"` or `"members"`, then `self` and `thing`
-can be only any of:
+should be any of:
 
 - Class (extended from Object)
 - Class instance (created by calling a class)
