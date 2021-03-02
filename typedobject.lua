@@ -38,14 +38,13 @@ end
 
 function Assist:isTypeOf(thing)
   if thing == self then return true end
-  local typeOfThing = type(thing)
   local typeOfSelf = type(self)
+  if typeOfSelf == thing then return true end
+  local typeOfThing = type(thing)
   if typeOfThing == "string" then typeOfThing = thing end
-  if typeOfSelf == "string" then typeOfSelf = self end
   if typeOfThing == typeOfSelf then return true end
   for _, check in ipairs(Assist.extraTypes) do
     if check(self, typeOfThing, typeOfSelf) then return true end
-    if check(thing, typeOfSelf, typeOfThing) then return true end
   end
   return false
 end

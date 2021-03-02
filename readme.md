@@ -191,8 +191,8 @@ Both of them are string parameters that changes behavior of the function:
 If `mode` is `"exact"` - simply compares `self` with `thing` and return result;
 
 If `mode` is `"type"` - checks if `self` is the same **type** *(not a class)* as
-`thing`. Both arguments (`self` and `thing`) can be a type names (strings) or
-anything else.
+`thing`. When `self` can be only a data to check, `thing` can be also a data or
+a type name (string).
 
 If `mode` is `"class"`, `"instance"` or `"member"` - checks if `thing` is a
 class, instance, or any kind of member for `self` respectively.
