@@ -2,8 +2,9 @@
 
 Object-oriented library with type checking.
 
-Version: [2.x](typedobject-2.3-1.rockspec) (rewrited from scratch and still
-improving!)
+Rewrited from scratch and still improving!
+
+Version: 2.x (See *.rockspec)
 
 ## Overview
 
