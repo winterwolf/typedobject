@@ -186,7 +186,7 @@ function Object:is(thing, mode, logic)
   end
 
   local function logicalCheck(check)
-    if logic == "all" then
+    if logic == "all" or logic == "none" then
       for _, table in ipairs(thing) do
         if not check(table) then return false end
       end
@@ -207,21 +207,21 @@ function Object:is(thing, mode, logic)
 
     if mode == "exacts" then
       return logicalCheck(function(table)
-        if self == table then return true end
-        return false
+        if self == table then return bool end
+        return not bool
       end)
     elseif mode == "types" then
       return logicalCheck(function(table)
-        if Assist.isTypeOf(self, table) then return true end
-        return false
+        if Assist.isTypeOf(self, table) then return bool end
+        return not bool
       end)
     else
       return logicalCheck(function(table)
         local member = Assist.isMemberOf(self, table)
-        if mode == "classes" and member == "class" then return true end
-        if mode == "instances" and member == "instance" then return true end
-        if mode == "members" and member then return true end
-        return false
+        if mode == "classes" and member == "class" then return bool end
+        if mode == "instances" and member == "instance" then return bool end
+        if mode == "members" and member then return bool end
+        return not bool
       end)
     end
   end
@@ -253,7 +253,7 @@ function Object:assert(thing, mode, logic, message)
   if message ~= "" then message = "\n" .. message end
 
   if not Object.is(self, thing, mode, logic) then
-    if logic == "not" or logic == "all"
+    if logic == "not" or logic == "all" or logic == "none"
       then logic = logic .. " "
       else logic = ""
     end

@@ -269,6 +269,8 @@ rect:assert({false, "Rectangle"}, "is") -- equivalent
 Object.assert(1, {2, "text"}, "types") -- is a number
 Object.assert("number", {"number", "string"}, "types", "any") -- equivalent
 
+Object.assert(1, {"float", "text"}, "types", "none")
+
 Rectangle:assert(Point)
 rect:assert({Point, "Point", Rectangle}, "members", "all")
 rect:assert({3, "Point", Rectangle}, "members", "not")
