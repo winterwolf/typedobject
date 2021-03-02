@@ -4,7 +4,7 @@ Object-oriented library with type checking.
 
 Rewrited from scratch and still improving!
 
-Version: 2.x (See *.rockspec)
+Version: 2.x (See typedobject-*.rockspec)
 
 ## Overview
 
