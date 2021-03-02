@@ -277,6 +277,15 @@ rect:assert({Point, "Point", Rectangle}, "members", "all")
 rect:assert({3, "Point", Rectangle}, "members", "not")
 ```
 
+#### Object:asserts(thing, mode, logic, message)
+
+Does the same as `Object:assert()`, but `self` must be a table and each value of
+this table will be asserted.
+
+```lua
+Object.asserts({1, 2, 3}, "number", "type")
+```
+
 ### Syntactic sugar
 
 As I said above, when class create instance, it calls constructor method (`new`)

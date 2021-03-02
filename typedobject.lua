@@ -248,9 +248,9 @@ end
 
 function Object:assert(thing, mode, logic, message)
   mode = Assist.modeShortToLong(mode)
-
   message = message or ""
   if message ~= "" then message = "\n" .. message end
+  local level = Assist.level or 2
 
   if not Object.is(self, thing, mode, logic) then
     if logic == "not" or logic == "all" or logic == "none"
@@ -259,8 +259,18 @@ function Object:assert(thing, mode, logic, message)
     end
     error("['" .. tostring(self) .. "' does not match '" ..
       tostring(thing) .. "' in mode '" .. tostring(logic) ..
-      tostring(mode) .. "']" .. message, 2)
+      tostring(mode) .. "']" .. message, level)
   end
+end
+
+
+function Object:asserts(...)
+  if type(self) ~= "table" then
+    error("method `Object.asserts()` expected `table` as first argument", 2)
+  end
+  Assist.level = 3
+  for _, value in ipairs(self) do Object.assert(value, ...) end
+  Assist.level = nil
 end
 
 
