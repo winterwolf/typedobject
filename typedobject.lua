@@ -177,7 +177,15 @@ end
 function Object:is(thing, mode, logic)
   mode = Assist.modeShortToLong(mode)
 
-  local function logicalCheck(check, bool)
+  logic = logic or "any"
+  local bool
+  if logic == "any" then bool = true
+  elseif logic == "not" then bool = false
+  elseif logic ~= "all" then
+    error("wrong logic: '" .. tostring(logic) .. "'", 3)
+  end
+
+  local function logicalCheck(check)
     if logic == "all" then
       for _, table in ipairs(thing) do
         if not check(table) then return false end
@@ -197,24 +205,16 @@ function Object:is(thing, mode, logic)
         "', but it is a '" .. tostring(thing) .. "'", 3)
     end
 
-    logic = logic or "any"
-    local bool
-    if logic == "any" then bool = true
-    elseif logic == "not" then bool = false
-    elseif logic ~= "all" then
-      error("wrong logic: '" .. tostring(logic) .. "'", 3)
-    end
-
     if mode == "exacts" then
       return logicalCheck(function(table)
         if self == table then return true end
         return false
-      end, bool)
+      end)
     elseif mode == "types" then
       return logicalCheck(function(table)
         if Assist.isTypeOf(self, table) then return true end
         return false
-      end, bool)
+      end)
     else
       return logicalCheck(function(table)
         local member = Assist.isMemberOf(self, table)
@@ -222,19 +222,19 @@ function Object:is(thing, mode, logic)
         if mode == "instances" and member == "instance" then return true end
         if mode == "members" and member then return true end
         return false
-      end, bool)
+      end)
     end
   end
 
   if mode == "exact" then
-    if self ~= thing then return false end
+    if self ~= thing then return not bool end
   elseif mode == "type" then
-    if not Assist.isTypeOf(self, thing) then return false end
+    if not Assist.isTypeOf(self, thing) then return not bool end
   elseif mode == "class" or mode == "instance" or mode == "member" then
     local result = Assist.isMemberOf(self, thing)
-    if result == mode then return true end
-    if mode == "member" and result then return true end
-    return false
+    if result == mode then return bool end
+    if mode == "member" and result then return bool end
+    return not bool
   elseif
     mode == "exacts" or
     mode == "classes" or
@@ -242,7 +242,7 @@ function Object:is(thing, mode, logic)
     mode == "members" or
     mode == "types" then return massCheck()
   else error("incorrect mode: '" .. mode .. "'", 3) end
-  return true
+  return bool
 end
 
 
