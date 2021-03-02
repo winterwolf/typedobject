@@ -179,9 +179,9 @@ function Object:is(thing, mode, logic)
 
   logic = logic or "any"
   local bool
-  if logic == "any" then bool = true
-  elseif logic == "not" then bool = false
-  elseif logic ~= "all" then
+  if logic == "any" or logic == "all" then bool = true
+  elseif logic == "not" or logic == "none" then bool = false
+  else
     error("wrong logic: '" .. tostring(logic) .. "'", 3)
   end
 
