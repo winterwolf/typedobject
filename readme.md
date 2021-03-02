@@ -353,8 +353,8 @@ local Object = require "typedobject" { production = true }
 ```
 
 The most important thing you should know about **Production** mode is that
-`Object.assert` doesn't work there, but assertions still helps a lot to
-better undersatand your code!
+`Object.assert` and `Object.asserts` doesn't work there, but assertions still
+helps a lot to better undersatand your code!
 
 You can also add a table with extra types here:
 

@@ -20,7 +20,9 @@ function Assist:config(config)
   if type(config) ~= "table" then error("'config' must be a table", 2) end
 
   if config.production then
-    Object.assert = function() end
+    local do_nothing = function() end
+    Object.assert = do_nothing
+    Object.asserts = do_nothing
   end
   if config.extraTypes then
     if type(config.extraTypes) ~= "table" then
