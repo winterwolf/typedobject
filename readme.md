@@ -80,7 +80,8 @@ You can mix other classes or just a simple tables when extend a class:
 local Lion = Animal:extend("Lion", Cat, { strength = 100 })
 ```
 
-Mixing is performed from left to right, so if the arguments contain the same values, then the left ones will be overwritten by the right ones.
+Mixing is performed from left to right, so if the arguments contain the same
+values, then the left ones will be overwritten by the right ones.
 
 ### Class fields and methods
 
@@ -221,7 +222,7 @@ There are also short versions of `mode` available:
 "m" = "member"        "ms" = "members"
 ```
 
-Now lets talk about "`logic`". It can be one of 3 values:
+Now lets talk about "`logic`". It can be one of four values:
 
 - `"any"` - return **true** when `self` corresponds to `thing`;
 - `"not"` - return **true** when `self` **not** corresponds to `thing`;
