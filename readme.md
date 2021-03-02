@@ -358,8 +358,7 @@ local Object = require "typedobject" {
   }
 }
 
-assert(Object.isTypeOf(3.14, "float"))
-assert(Object.isTypeOf("integer", 3))
+Object.assert(3.14, "float", "type")
 ```
 
 ## Conclusions and other thoughts
