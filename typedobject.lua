@@ -1,5 +1,12 @@
 local Assist = {
-  extraTypes = {}
+  extraTypes = {},
+  modes = {
+    e = "exact",         es = "exacts",
+    t = "type",          ts = "types",
+    c = "class",         cs = "classes",
+    i = "instance",      is = "instances",
+    m = "member",        ms = "members",
+  }
 }
 
 local Object = {
@@ -116,6 +123,15 @@ function Assist:applyCombinedIndexFromSelf(apply_here)
 end
 
 
+function Assist:modeShortToLong()
+  if self == nil then return "member" end
+  for short, long in pairs(Assist.modes) do
+    if self == short then self = long break end
+  end
+  return self
+end
+
+
 function Object:new(args)
   local t = type(args)
   if t ~= "table" then
@@ -160,18 +176,7 @@ end
 
 
 function Object:is(thing, mode, logic)
-  mode = mode or "member"
-  if       mode == "e"  then mode = "exact"
-    elseif mode == "t"  then mode = "type"
-    elseif mode == "c"  then mode = "class"
-    elseif mode == "i"  then mode = "instance"
-    elseif mode == "m"  then mode = "member"
-    elseif mode == "es" then mode = "exacts"
-    elseif mode == "ts" then mode = "types"
-    elseif mode == "cs" then mode = "classes"
-    elseif mode == "is" then mode = "instances"
-    elseif mode == "ms" then mode = "members"
-  end
+  mode = Assist.modeShortToLong(mode)
 
   local function logicalCheck(check, bool)
     if logic == "all" then
@@ -237,14 +242,17 @@ function Object:is(thing, mode, logic)
     mode == "instances" or
     mode == "members" or
     mode == "types" then return massCheck()
-  else error("incorrect mode: '" .. mode .. "'", 2) end
+  else error("incorrect mode: '" .. mode .. "'", 3) end
   return true
 end
 
 
 function Object:assert(thing, mode, logic, message)
+  mode = Assist.modeShortToLong(mode)
+
   message = message or ""
   if message ~= "" then message = "\n" .. message end
+
   if not Object.is(self, thing, mode, logic) then
     if logic == "not" or logic == "all"
       then logic = logic .. " "
