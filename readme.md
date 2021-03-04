@@ -56,7 +56,7 @@ or simply download it from this repository.
 Now let's require it:
 
 ```lua
-local Object = require "typedobject" ()
+local Object = require "typedobject" {}
 ```
 
 Please note that the parentheses at the end are important. `Object` must be
