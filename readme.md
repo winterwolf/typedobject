@@ -224,6 +224,9 @@ There are also short versions of `mode` available:
 "m" = "member"        "ms" = "members"
 ```
 
+And you can add **question mark** to the end of `mode` if this check is optional
+and value can be `nil`, like **"c?"** or **"class?"** etc.
+
 Now lets talk about "`logic`". It can be one of four values:
 
 - `"any"` - return **true** when `self` corresponds to `thing`;
@@ -277,6 +280,8 @@ Object.assert(1, {"float", "text"}, "types", "none")
 Rectangle:assert(Point)
 rect:assert({Point, "Point", Rectangle}, "members", "all")
 rect:assert({3, "Point", Rectangle}, "members", "not")
+
+Object.assert(nil, 3, "e?") -- optional check
 ```
 
 #### Object:asserts(thing, mode, logic, message)

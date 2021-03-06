@@ -133,6 +133,13 @@ function Assist:modeShortToLong()
 end
 
 
+function Assist:modeOptional()
+  if self == nil then return false end
+  if string.sub(self, -1) == "?" then return true, string.sub(self, 1, -2) end
+  return false, self
+end
+
+
 function Object:new(args)
   local t = type(args)
   if t ~= "table" then
@@ -177,6 +184,10 @@ end
 
 
 function Object:is(thing, mode, logic)
+  local optional
+  optional, mode = Assist.modeOptional(mode)
+
+  if optional and self == nil then return true end
   mode = Assist.modeShortToLong(mode)
 
   logic = logic or "any"
@@ -249,7 +260,12 @@ end
 
 
 function Object:assert(thing, mode, logic, message)
+  local optional
+  optional, mode = Assist.modeOptional(mode)
+
+  if optional and self == nil then return true end
   mode = Assist.modeShortToLong(mode)
+
   message = message or ""
   if message ~= "" then message = "\n" .. message end
   local level = Assist.level or 2
