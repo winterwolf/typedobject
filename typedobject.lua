@@ -147,13 +147,13 @@ end
 
 
 ---Constructor method (class initializer).
----@param args table All `args` values will be applied to `self` by default.
-function Object:new(args)
-  local t = type(args)
+---@param fields table All `fields` will be applied to `self` by default.
+function Object:new(fields)
+  local t = type(fields)
   if t ~= "table" then
     error("'Object:new()' expected a table, but got " .. t, 3)
   end
-  for key, value in pairs(args) do self[key] = value end
+  for key, value in pairs(fields) do self[key] = value end
 end
 
 
