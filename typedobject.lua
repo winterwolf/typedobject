@@ -280,9 +280,9 @@ end
 
 
 ---Check if `self` is `thing` and throw error if check failed.
----Add `?` at the end of mode if `self` сan be `nil` (optional check).
 ---@param thing any
 ---@param mode? string exact(s)|type(s)|classe(s)|instance(s)|member(s).
+---Add `?` at the end of mode if `self` сan be `nil` (optional check).
 ---@param logic? string any|all|not|none.
 ---@param message? string
 function Object:assert(thing, mode, logic, message)
