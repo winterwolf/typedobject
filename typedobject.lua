@@ -1,3 +1,5 @@
+---@class TypedObjectAssist
+---@field __index TypedObject|table|nil
 local Assist = {
   extraTypes = {},
   modes = {
@@ -9,6 +11,10 @@ local Assist = {
   }
 }
 
+---@class TypedObject
+---@field classname string Name of current class.
+---@field classmap table Table with all known classes, indexed by their names.
+---@field super TypedObject|table Object's super class.
 local Object = {
   classname = "Object",
   classmap = setmetatable({}, {__mode = "kv",}),
@@ -140,6 +146,8 @@ function Assist:modeOptional()
 end
 
 
+---Constructor method (class initializer).
+---@param args table All `args` values will be applied to `self` by default.
 function Object:new(args)
   local t = type(args)
   if t ~= "table" then
@@ -149,6 +157,10 @@ function Object:new(args)
 end
 
 
+---New class creation method.
+---@param classname string Name of the new method.
+---@vararg table|TypedObject Extra fields and methods.
+---@return TypedObject
 function Object:extend(classname, ...)
   if type(classname) ~= "string" then error("class must have a name", 2) end
 
@@ -172,6 +184,8 @@ function Object:extend(classname, ...)
 end
 
 
+---Share new methods with a class.
+---@vararg table|TypedObject Extra methods.
 function Object:implement(...)
   for _, cls in pairs({...}) do
     for key, value in pairs(cls) do
@@ -183,6 +197,12 @@ function Object:implement(...)
 end
 
 
+---Check if `self` is `thing` in different conditions.
+---@param thing any
+---@param mode string|nil exact(s)|type(s)|classe(s)|instance(s)|member(s).
+---Add `?` at the end of mode if `self` сan be `nil` (optional check).
+---@param logic string|nil any|all|not|none.
+---@return boolean
 function Object:is(thing, mode, logic)
   local optional
   optional, mode = Assist.modeOptional(mode)
@@ -259,6 +279,12 @@ function Object:is(thing, mode, logic)
 end
 
 
+---Check if `self` is `thing` and throw error if check failed.
+---@param thing any
+---@param mode string|nil exact(s)|type(s)|classe(s)|instance(s)|member(s).
+---Add `?` at the end of mode if `self` сan be `nil` (optional check).
+---@param logic string|nil any|all|not|none.
+---@param message string|nil
 function Object:assert(thing, mode, logic, message)
   local optional
   optional, mode = Assist.modeOptional(mode)
@@ -282,6 +308,8 @@ function Object:assert(thing, mode, logic, message)
 end
 
 
+---Do the same as `Object:assert`
+---but `self` must be a table with multiply values.
 function Object:asserts(...)
   if type(self) ~= "table" then
     error("method `Object.asserts()` expected `table` as first argument", 2)
