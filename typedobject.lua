@@ -1,5 +1,5 @@
 ---@class TypedObjectAssist
----@field __index TypedObject|table|nil
+---@field __index TypedObject|table
 local Assist = {
   extraTypes = {},
   modes = {
@@ -199,9 +199,9 @@ end
 
 ---Check if `self` is `thing` in different conditions.
 ---@param thing any
----@param mode string|nil exact(s)|type(s)|classe(s)|instance(s)|member(s).
+---@param mode? string exact(s)|type(s)|classe(s)|instance(s)|member(s).
 ---Add `?` at the end of mode if `self` сan be `nil` (optional check).
----@param logic string|nil any|all|not|none.
+---@param logic? string any|all|not|none.
 ---@return boolean
 function Object:is(thing, mode, logic)
   local optional
@@ -280,11 +280,11 @@ end
 
 
 ---Check if `self` is `thing` and throw error if check failed.
----@param thing any
----@param mode string|nil exact(s)|type(s)|classe(s)|instance(s)|member(s).
 ---Add `?` at the end of mode if `self` сan be `nil` (optional check).
----@param logic string|nil any|all|not|none.
----@param message string|nil
+---@param thing any
+---@param mode? string exact(s)|type(s)|classe(s)|instance(s)|member(s).
+---@param logic? string any|all|not|none.
+---@param message? string
 function Object:assert(thing, mode, logic, message)
   local optional
   optional, mode = Assist.modeOptional(mode)
