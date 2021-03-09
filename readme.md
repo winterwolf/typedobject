@@ -50,7 +50,7 @@ It also suports [lua-language-server][1] (or similar emmylua-based tools):
 
 [1]: https://marketplace.visualstudio.com/items?itemName=sumneko.lua
 
-![emmylua](https://imgur.com/9vyisVr.png)
+![emmylua](https://imgur.com/HM47m1j.png)
 
 ## Documentation
 

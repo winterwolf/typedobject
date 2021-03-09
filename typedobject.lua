@@ -158,7 +158,7 @@ end
 
 
 ---New class creation method.
----@param classname string Name of the new method.
+---@param classname string Name of the new class.
 ---@vararg table|Object Extra fields and methods.
 ---@return Object
 function Object:extend(classname, ...)
