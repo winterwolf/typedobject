@@ -23,7 +23,7 @@ Version: 2.x (see `.rockspec` file).
 - [ ] In my dreams (very hard or impossible tasks):
   - [ ] Integration with [lua-language-server][1]:
     - [ ] Remove Object.assert and make auto-assertions, based on comments.
-    - [ ] Remove classname definitions and make them based on comments.
+    - [ ] Remove classname definitions and make them based on something.
   - [ ] Generate wiki based on code and comments.
 
 ... Something is missing? [Request] your features!
