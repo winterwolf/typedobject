@@ -24,7 +24,7 @@ Version: 2.x (see `.rockspec` file).
   - [ ] Integration with [lua-language-server][1]:
     - [ ] Remove Object.assert and make auto-assertions, based on comments.
     - [ ] Remove classname definitions and make them based on comments.
-  - [ ] Generate wiki based on code and commets.
+  - [ ] Generate wiki based on code and comments.
 
 ... Something is missing? [Request] your features!
 
