@@ -13,13 +13,18 @@ Version: 2.x (see `.rockspec` file).
 - [x] [Clean and easy debug](#easy-debug).
 - [x] [Well documented](#documentation).
 - [x] [Multiply inheritance](#inheritance).
-- [x] [Member checking](#objectisthing-mode-logic).
+- [x] [Member checking](#objectisthing-mode-logic):
   - [x] Type checking.
   - [x] Class and instance checking.
   - [x] Custom extra types checking.
   - [x] Assertions in Development mode.
 - [x] [Metamethods support](#metamethods).
 - [x] [Settings](#settings).
+- [ ] In my dreams (very hard or impossible tasks):
+  - [ ] Integration with [lua-language-server][1]:
+    - [ ] Remove Object.assert and make auto-assertions, based on comments.
+    - [ ] Remove classname definitions and make them based on comments.
+  - [ ] Generate wiki based on code and commets.
 
 ... Something is missing? [Request] your features!
 
