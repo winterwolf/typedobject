@@ -4,7 +4,7 @@
 -- https://marketplace.visualstudio.com/items?itemName=sumneko.lua
 
 
----@type TypedObject
+---@type Object
 local Object = require "typedobject" {
   production = false,
   extraTypes = {
@@ -13,7 +13,7 @@ local Object = require "typedobject" {
   }
 }
 
----@class Point:TypedObject
+---@class Point:Object
 local Point = Object:extend "Point"
 
 Point.scale = 2 -- Class field!

@@ -46,6 +46,12 @@ that you have personally declared:
 
 ![debug example](https://imgur.com/K3RrC0W.png)
 
+It also suports [lua-language-server][1] (or similar emmylua-based tools):
+
+[1]: https://marketplace.visualstudio.com/items?itemName=sumneko.lua
+
+![emmylua](https://imgur.com/9vyisVr.png)
+
 ## Documentation
 
 ### First steps

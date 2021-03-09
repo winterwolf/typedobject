@@ -1,5 +1,5 @@
----@class TypedObjectAssist
----@field __index TypedObject|table
+---@class __ObjectAssist
+---@field __index Object|table
 local Assist = {
   extraTypes = {},
   modes = {
@@ -11,10 +11,10 @@ local Assist = {
   }
 }
 
----@class TypedObject
+---@class Object
 ---@field classname string Name of current class.
 ---@field classmap table Table with all known classes, indexed by their names.
----@field super TypedObject|table Object's super class.
+---@field super Object|table Object's super class.
 local Object = {
   classname = "Object",
   classmap = setmetatable({}, {__mode = "kv",}),
@@ -159,8 +159,8 @@ end
 
 ---New class creation method.
 ---@param classname string Name of the new method.
----@vararg table|TypedObject Extra fields and methods.
----@return TypedObject
+---@vararg table|Object Extra fields and methods.
+---@return Object
 function Object:extend(classname, ...)
   if type(classname) ~= "string" then error("class must have a name", 2) end
 
@@ -185,7 +185,7 @@ end
 
 
 ---Share new methods with a class.
----@vararg table|TypedObject Extra methods.
+---@vararg table|Object Extra methods.
 function Object:implement(...)
   for _, cls in pairs({...}) do
     for key, value in pairs(cls) do
