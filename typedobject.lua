@@ -14,7 +14,7 @@ local Assist = {
 ---@class Object
 ---@field classname string Name of current class.
 ---@field classmap table Table with all known classes, indexed by their names.
----@field super Object|table Object's super class.
+---@field super any Object's super class.
 local Object = {
   classname = "Object",
   classmap = setmetatable({}, {__mode = "kv",}),
