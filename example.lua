@@ -29,6 +29,7 @@ function Point:resize()
 end
 
 ---@class Rectangle:Point
+---@field super Point
 local Rectangle = Point:extend "Rectangle"
 
 function Rectangle:resize()
