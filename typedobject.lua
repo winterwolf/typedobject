@@ -22,28 +22,6 @@ local Object = {
 }
 
 
-function Assist:config(config)
-  if type(config) ~= "table" then error("'config' must be a table", 2) end
-
-  if config.production then
-    local do_nothing = function() end
-    Object.assert = do_nothing
-    Object.asserts = do_nothing
-  end
-  if config.extraTypes then
-    if type(config.extraTypes) ~= "table" then
-      error("'config.extraTypes' must be a table", 2)
-    end
-    Assist.extraTypes = config.extraTypes
-  end
-
-  local mt = getmetatable(Object)
-  mt.__call = Assist.instance
-  setmetatable(Object, mt)
-  return Object
-end
-
-
 function Assist:isTypeOf(thing)
   if thing == self then return true end
   local typeOfSelf = type(self)
@@ -320,8 +298,34 @@ function Object:asserts(...)
 end
 
 
+---Disposable method for configuring Object before use.
+---@param config? table
+---@return Object
+function Object.config(config)
+  if config then
+    if type(config) ~= "table" then error("'config' must be a table", 2) end
+    if config.production then
+      local do_nothing = function() end
+      Object.assert = do_nothing
+      Object.asserts = do_nothing
+    end
+    if config.extraTypes then
+      if type(config.extraTypes) ~= "table" then
+        error("'config.extraTypes' must be a table", 2)
+      end
+      for index, value in ipairs(config.extraTypes) do
+        if type(value) ~= "function" then config.extraTypes[index] = nil end
+      end
+      Assist.extraTypes = config.extraTypes
+    end
+  end
+  Object.config = nil
+  return Object
+end
+
+
 Object.classmap.Object = Object
 return setmetatable(Object, {
   __tostring = function(self) return "class " .. self.classname end,
-  __call = Assist.config
+  __call = Assist.instance
 })

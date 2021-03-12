@@ -4,8 +4,7 @@
 -- https://marketplace.visualstudio.com/items?itemName=sumneko.lua
 
 
----@type Object
-local Object = require "typedobject" {
+local Object = require("typedobject").config {
   production = false,
   extraTypes = {
     require "types.basic", -- Basic types: integer, float, char ...
@@ -47,7 +46,7 @@ end
 ---@type Rectangle
 local rect = Rectangle(2, 4, 6, 8)
 
-Object.assert(1, 1, "exact")
+Object.assert(1, "integer", "type")
 Object.assert("Rectangle", Point, "class")
 
 Object.assert(rect, {false, "Rectangle"}, "instances")

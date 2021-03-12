@@ -67,11 +67,8 @@ or simply download it from this repository.
 Now let's require it:
 
 ```lua
-local Object = require "typedobject" {}
+local Object = require "typedobject"
 ```
-
-Please note that the parentheses at the end are important. `Object` must be
-called once in order to configure themself.
 
 ### Inheritance
 
@@ -367,7 +364,7 @@ can reduce performance, so before the release of your project it makes sense to
 switch `Object` to **Production** mode:
 
 ```lua
-local Object = require "typedobject" { production = true }
+local Object = require("typedobject").config{ production = true }
 ```
 
 The most important thing you should know about **Production** mode is that
@@ -377,7 +374,7 @@ helps a lot to better undersatand your code!
 You can also add a table with extra types here:
 
 ```lua
-local Object = require "typedobject" {
+local Object = require("typedobject").config {
   production = false,
   extraTypes = {
     require "types.basic", -- Basic types: integer, float, char ...
@@ -387,6 +384,8 @@ local Object = require "typedobject" {
 
 Object.assert(3.14, "float", "type")
 ```
+
+Once you used `Object.config()`, it will be constantly removed.
 
 ## Conclusions and other thoughts
 
