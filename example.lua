@@ -17,7 +17,7 @@ local Point = Object:extend "Point"
 
 Point.scale = 2 -- Class field!
 
-function Point:new(x, y)
+function Point:init(x, y)
   self.x = x or 0
   self.y = y or 0
 end
@@ -37,8 +37,8 @@ function Rectangle:resize()
   self.h = self.h * self.scale
 end
 
-function Rectangle:new(x, y, w, h)
-  Rectangle.super.new(self, x, y) -- Initialize Point first!
+function Rectangle:init(x, y, w, h)
+  Rectangle.super.init(self, x, y) -- Initialize Point first!
   self.w = w or 0
   self.h = h or 0
 end

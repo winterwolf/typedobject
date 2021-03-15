@@ -62,19 +62,6 @@ function Assist:isMemberOf(cls)
 end
 
 
-function Assist:instance(...)
-  local obj_mt = {
-    __index = self,
-    __tostring = function() return "instance of " .. self.classname end
-  }
-  local obj = setmetatable({}, obj_mt)
-  obj:new(...)
-  Assist.applyDefinedMetaFromClasses(self, obj_mt)
-  Assist.applyCombinedIndexFromSelf(self, obj_mt)
-  return setmetatable(obj, obj_mt)
-end
-
-
 function Assist:applyDefinedMetaFromClasses(apply_here)
   -- Rect > Point > Object
   local applied = {}
@@ -124,12 +111,26 @@ function Assist:modeOptional()
 end
 
 
+---Create instance of Object.
+function Object:new(...)
+  local obj_mt = {
+    __index = self,
+    __tostring = function() return "instance of " .. self.classname end
+  }
+  local obj = setmetatable({}, obj_mt)
+  obj:init(...)
+  Assist.applyDefinedMetaFromClasses(self, obj_mt)
+  Assist.applyCombinedIndexFromSelf(self, obj_mt)
+  return setmetatable(obj, obj_mt)
+end
+
+
 ---Constructor method (class initializer).
 ---@param fields table All `fields` will be applied to `self` by default.
-function Object:new(fields)
+function Object:init(fields)
   local t = type(fields)
   if t ~= "table" then
-    error("'Object:new()' expected a table, but got " .. t, 3)
+    error("'Object:init()' expected a table, but got " .. t, 3)
   end
   for key, value in pairs(fields) do self[key] = value end
 end
@@ -327,5 +328,5 @@ end
 Object.classmap.Object = Object
 return setmetatable(Object, {
   __tostring = function(self) return "class " .. self.classname end,
-  __call = Assist.instance
+  __call = Object.new
 })

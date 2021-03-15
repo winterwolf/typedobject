@@ -95,13 +95,13 @@ values, then the left ones will be overwritten by the right ones.
 
 ### Class fields and methods
 
-When class create instance, it calls constructor method (`new`) from self or its
+When class create instance, it calls constructor method (`init`) from self or its
 closest super-class.
 
-In any class method (including `new`) variable `self` refers to class instance.
+In any class method (including `init`) variable `self` refers to class instance.
 Although it can be deliberately tampered with. Look at the example below:
-`Rectangle.super.new(self, ...)` - we called `.new(something_else)` there
-instead of `:new()`.
+`Rectangle.super.init(self, ...)` - we called `.init(something_else)` there
+instead of `:init()`.
 
 Class also can has own fields, which are available from its instance. Usually
 they used to store some constants in libs, for example: `Math.pi = 3.14`.
@@ -113,7 +113,7 @@ local Point = Object:extend "Point"
 
 Point.scale = 2 -- Class field!
 
-function Point:new(x, y)
+function Point:init(x, y)
   self.x = x or 0
   self.y = y or 0
 end
@@ -125,8 +125,8 @@ end
 
 local Rectangle = Point:extend "Rectangle"
 
-function Rectangle:new(x, y, w, h)
-  Rectangle.super.new(self, x, y) -- Initialize Point first!
+function Rectangle:init(x, y, w, h)
+  Rectangle.super.init(self, x, y) -- Initialize Point first!
   self.w = w or 0
   self.h = h or 0
 end
@@ -303,7 +303,7 @@ Object.asserts({1, 2, 3}, "number", "type")
 
 ### Syntactic sugar
 
-As I said above, when class create instance, it calls constructor method (`new`)
+As I said above, when class create instance, it calls constructor method (`init`)
 from self or its closest super-class. Now you should know that `Object`'s
 constructor is not nil. If you didn't define this method in your classes, then
 by default it will take a table and apply all its fields to `self`.
@@ -322,7 +322,7 @@ assert(test:test() == 123)
 ```
 
 Earlier I tried to implement a syntactic sugar as well for the
-`Object.extend()` and `Object.new()`, but later I realized that it only creates
+`Object.extend()` and `Object.init()`, but later I realized that it only creates
 problems and is not compatible with the idea of strong-typing each class field
 with `Object.assert()`, so I decided to remove it.
 
