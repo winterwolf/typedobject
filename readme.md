@@ -137,8 +137,8 @@ function Rectangle:resize()
   self.h = self.h * self.scale
 end
 
--- You can just call Class() to create instance or use Class:new() if you use
--- an editor with smart hints, which is not smart enough to parse metamethods.
+-- You can just call Class() to create instance or use Class:new() for
+-- editor with smart hints, which is not smart enough to parse metamethods.
 local rect = Rectangle(2, 4, 6, 8)
 
 rect:resize()
