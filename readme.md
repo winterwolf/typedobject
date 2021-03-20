@@ -13,7 +13,7 @@ Version: 2.x (see `.rockspec` file).
 - [x] [Clean and easy debug](#easy-debug).
 - [x] [Well documented](#documentation).
 - [x] [Multiply inheritance](#inheritance).
-- [x] [Member checking](#objectisthing-mode-logic):
+- [x] [Member checking](#objectistest-mode-logic):
   - [x] Type checking.
   - [x] Class and instance checking.
   - [x] Custom extra types checking.
@@ -192,7 +192,7 @@ anywhere.
 assert(Object.classmap.Point.classname == "Point")
 ```
 
-#### Object:is(thing, mode, logic)
+#### Object:is(test, mode, logic)
 
 Universal member checking method. It is the most complicated one, but very
 userful.
@@ -201,19 +201,19 @@ First at all, let me explain, what `mode` and `logic` is.
 
 Both of them are string parameters that changes behavior of the function:
 
-If `mode` is `"exact"` - simply compares `self` with `thing` and return result;
+If `mode` is `"exact"` - simply compares `self` with `test` and return result;
 
 If `mode` is `"type"` - checks if `self` is the same **type** *(not a class)* as
-`thing`. When `self` can be only a data to check, `thing` can be also a data or
+`test`. When `self` can be only a data to check, `test` can be also a data or
 a type name (string).
 
-If `mode` is `"class"`, `"instance"` or `"member"` - checks if `thing` is a
+If `mode` is `"class"`, `"instance"` or `"member"` - checks if `test` is a
 class, instance, or any kind of member for `self` respectively.
 
 If `mode` is `"exacts"`, `"classes"`, `"instances"`, `"members"` or `"types"`,
-then `thing` must be a table with many things.
+then `test` must be a table with many tests.
 
-If `mode` is `"classes"`, `"instances"` or `"members"`, then `self` and `thing`
+If `mode` is `"classes"`, `"instances"` or `"members"`, then `self` and `test`
 should be any of:
 
 - Class (extended from Object)
@@ -239,11 +239,11 @@ and value can be `nil`, like **"c?"** or **"class?"** etc.
 
 Now lets talk about "`logic`". It can be one of four values:
 
-- `"any"` - return **true** when `self` corresponds to `thing`;
-- `"not"` - return **true** when `self` **not** corresponds to `thing`;
-- `"all"` - return **true** if `thing` is a table with many things and **all**
+- `"any"` - return **true** when `self` corresponds to `test`;
+- `"not"` - return **true** when `self` **not** corresponds to `test`;
+- `"all"` - return **true** if `test` is a table with many tests and **all**
   of them correspond to `self`;
-- `"none"` - return **true** if `thing` is a table with many things and **none**
+- `"none"` - return **true** if `test` is a table with many tests and **none**
   of them correspond to `self`.
 
 This function always returns boolean. `mode` and `logic` are optional.
@@ -258,7 +258,7 @@ assert(rect:is(Point))
 
 More examples see in the next topic.
 
-#### Object:assert(thing, mode, logic, message)
+#### Object:assert(test, mode, logic, message)
 
 Does absolutely the same as method `Object:is()`, but throws error instead of
 returning false and doesn't work in **Production** mode for maximum perfomance.
@@ -294,7 +294,7 @@ rect:assert({3, "Point", Rectangle}, "members", "not")
 Object.assert(nil, 3, "e?") -- optional check
 ```
 
-#### Object:asserts(thing, mode, logic, message)
+#### Object:asserts(test, mode, logic, message)
 
 Does the same as `Object:assert()`, but `self` must be a table and each value of
 this table will be asserted.

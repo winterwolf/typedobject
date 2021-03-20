@@ -22,12 +22,12 @@ local Object = {
 }
 
 
-function Assist:isTypeOf(thing)
-  if thing == self then return true end
+function Assist:isTypeOf(test)
+  if test == self then return true end
   local typeOfSelf = type(self)
-  if typeOfSelf == thing then return true end
-  local typeOfThing = type(thing)
-  if typeOfThing == "string" then typeOfThing = thing end
+  if typeOfSelf == test then return true end
+  local typeOfThing = type(test)
+  if typeOfThing == "string" then typeOfThing = test end
   if typeOfThing == typeOfSelf then return true end
   for _, check in ipairs(Assist.extraTypes) do
     if check(self, typeOfThing, typeOfSelf) then return true end
@@ -176,13 +176,13 @@ function Object:implement(...)
 end
 
 
----Check if `self` is `thing` in different conditions.
----@param thing any
+---Check if `self` is `test` in different conditions.
+---@param test any
 ---@param mode? string exact(s)|type(s)|classe(s)|instance(s)|member(s).
 ---Add `?` at the end of mode if `self` сan be `nil` (optional check).
 ---@param logic? string any|all|not|none.
 ---@return boolean
-function Object:is(thing, mode, logic)
+function Object:is(test, mode, logic)
   local optional
   optional, mode = Assist.modeOptional(mode)
 
@@ -199,12 +199,12 @@ function Object:is(thing, mode, logic)
 
   local function logicalCheck(check)
     if logic == "all" or logic == "none" then
-      for _, table in ipairs(thing) do
+      for _, table in ipairs(test) do
         if not check(table) then return false end
       end
       return true
     else
-      for _, table in ipairs(thing) do
+      for _, table in ipairs(test) do
         if check(table) == bool then return true end
       end
       return false
@@ -212,9 +212,9 @@ function Object:is(thing, mode, logic)
   end
 
   local function massCheck()
-    if type(thing) ~= "table" or thing.super then
-      error("'thing' must be a table with 'things' in mode '" .. mode ..
-        "', but it is a '" .. tostring(thing) .. "'", 3)
+    if type(test) ~= "table" or test.super then
+      error("'test' must be a table with 'tests' in mode '" .. mode ..
+        "', but it is a '" .. tostring(test) .. "'", 3)
     end
 
     if mode == "exacts" then
@@ -239,11 +239,11 @@ function Object:is(thing, mode, logic)
   end
 
   if mode == "exact" then
-    if self ~= thing then return not bool end
+    if self ~= test then return not bool end
   elseif mode == "type" then
-    if not Assist.isTypeOf(self, thing) then return not bool end
+    if not Assist.isTypeOf(self, test) then return not bool end
   elseif mode == "class" or mode == "instance" or mode == "member" then
-    local result = Assist.isMemberOf(self, thing)
+    local result = Assist.isMemberOf(self, test)
     if result == mode then return bool end
     if mode == "member" and result then return bool end
     return not bool
@@ -258,13 +258,13 @@ function Object:is(thing, mode, logic)
 end
 
 
----Check if `self` is `thing` and throw error if check failed.
----@param thing any
+---Check if `self` is `test` and throw error if check failed.
+---@param test any
 ---@param mode? string exact(s)|type(s)|classe(s)|instance(s)|member(s).
 ---Add `?` at the end of mode if `self` сan be `nil` (optional check).
 ---@param logic? string any|all|not|none.
 ---@param message? string
-function Object:assert(thing, mode, logic, message)
+function Object:assert(test, mode, logic, message)
   local optional
   optional, mode = Assist.modeOptional(mode)
 
@@ -275,13 +275,13 @@ function Object:assert(thing, mode, logic, message)
   if message ~= "" then message = "\n" .. message end
   local level = Assist.level or 2
 
-  if not Object.is(self, thing, mode, logic) then
+  if not Object.is(self, test, mode, logic) then
     if logic == "not" or logic == "all" or logic == "none"
       then logic = logic .. " "
       else logic = ""
     end
     error("['" .. tostring(self) .. "' does not match '" ..
-      tostring(thing) .. "' in mode '" .. tostring(logic) ..
+      tostring(test) .. "' in mode '" .. tostring(logic) ..
       tostring(mode) .. "']" .. message, level)
   end
 end
