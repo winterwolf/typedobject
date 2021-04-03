@@ -112,6 +112,9 @@ end
 
 
 ---Create instance of Object.
+---@generic T
+---@param self T
+---@return T
 function Object:new(...)
   local obj_mt = {
     __index = self,

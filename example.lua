@@ -43,8 +43,7 @@ function Rectangle:init(x, y, w, h)
   self.h = h or 0
 end
 
----@type Rectangle
-local rect = Rectangle(2, 4, 6, 8)
+local rect = Rectangle:new(2, 4, 6, 8)
 
 Object.assert(1, "integer", "type")
 Object.assert("Rectangle", Point, "class")
