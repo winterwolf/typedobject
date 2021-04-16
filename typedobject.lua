@@ -179,11 +179,27 @@ function Object:implement(...)
 end
 
 
+---@alias __mode
+---| "'exact'"
+---| "'type'"
+---| "'class'"
+---| "'instance'"
+---| "'member'"
+
+
+---@alias __logic
+---| "'any'"
+---| "'all'"
+---| "'not'"
+---| "'none'"
+
+
 ---Check if `self` is `test` in different conditions.
+---Add `s` at the end of `mode` for multiply check (in table).
+---Add `?` at the end of `mode` if `self` сan be `nil` (optional check).
 ---@param test any
----@param mode? string exact(s)|type(s)|classe(s)|instance(s)|member(s).
----Add `?` at the end of mode if `self` сan be `nil` (optional check).
----@param logic? string any|all|not|none.
+---@param mode? __mode
+---@param logic? __logic
 ---@return boolean
 function Object:is(test, mode, logic)
   local optional
@@ -260,12 +276,12 @@ function Object:is(test, mode, logic)
   return bool
 end
 
-
 ---Check if `self` is `test` and throw error if check failed.
+---Add `s` at the end of `mode` for multiply check (in table).
+---Add `?` at the end of `mode` if `self` сan be `nil` (optional check).
 ---@param test any
----@param mode? string exact(s)|type(s)|classe(s)|instance(s)|member(s).
----Add `?` at the end of mode if `self` сan be `nil` (optional check).
----@param logic? string any|all|not|none.
+---@param mode? __mode
+---@param logic? __logic
 ---@param message? string
 function Object:assert(test, mode, logic, message)
   local optional
@@ -292,12 +308,18 @@ end
 
 ---Do the same as `Object:assert`
 ---but `self` must be a table with multiply values.
-function Object:asserts(...)
+---Add `s` at the end of `mode` for multiply check (in table).
+---Add `?` at the end of `mode` if `self` сan be `nil` (optional check).
+---@param self table
+---@param test any
+---@param mode? __mode
+---@param logic? __logic
+function Object.asserts(self, test, mode, logic)
   if type(self) ~= "table" then
     error("method `Object.asserts()` expected `table` as first argument", 2)
   end
   Assist.level = 3
-  for _, value in ipairs(self) do Object.assert(value, ...) end
+  for _, value in ipairs(self) do Object.assert(value, test, mode, logic) end
   Assist.level = nil
 end
 
@@ -309,7 +331,7 @@ function Object.config(config)
   if config then
     if type(config) ~= "table" then error("'config' must be a table", 2) end
     if config.production then
-      local do_nothing = function() end
+      local do_nothing = function() end ---@type function
       Object.assert = do_nothing
       Object.asserts = do_nothing
     end
