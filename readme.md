@@ -10,6 +10,8 @@ The practice of using this library has shown that such precise type checking is
 not necessary at all. Perhaps in the near future I will abandon this repository
 and create a new one - ultra minimalistic!
 
+HERE IS IT: https://github.com/lua-rocks/object
+
 ## Overview
 
 - [x] [Perfomance at the first place](#perfomance).
